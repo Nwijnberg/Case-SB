@@ -23,7 +23,7 @@ namespace AddressApp.Controllers
 
         // GET: api/AddressDatas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressData()
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAllAddressData()
         {
             return await _context.ADDRESS_DATA
                 .Select(x => AddressDataToDTO(x))
