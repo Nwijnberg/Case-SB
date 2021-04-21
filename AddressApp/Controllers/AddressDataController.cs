@@ -23,15 +23,15 @@ namespace AddressApp.Controllers
 
         // GET: api/AddressDatas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressData()
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAllAddressData()
         {
             return await _context.ADDRESS_DATA
                 .Select(x => AddressDataToDTO(x))
                 .ToListAsync();
         }
 
-        [HttpGet("{postcode}")]
-        public async Task<ActionResult<AddressDataDTO>> GetAddressData(string postcode)
+        [HttpGet("postcode/{postcode}")]
+        public async Task<ActionResult<AddressDataDTO>> GetAddressDataByPostcode(string postcode)
         {
             var addressData = await _context.ADDRESS_DATA.FindAsync(postcode);
 
@@ -41,6 +41,240 @@ namespace AddressApp.Controllers
             }
 
             return AddressDataToDTO(addressData);
+        }
+
+        [HttpGet("street/{street}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressDataByStreet(string street)
+        {
+            var addressData = await _context.ADDRESS_DATA
+                            .Where(x => x.Street == street)
+                            .Select(x => AddressDataToDTO(x))
+                            .ToListAsync();
+
+            if (addressData == null || !addressData.Any())
+            {
+                return NotFound();
+            }
+
+            return addressData;
+        }
+
+        [HttpGet("housenumber/{house_number}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressDataByHouseNumber(long house_number)
+        {
+            var addressData = await _context.ADDRESS_DATA
+                            .Where(x => x.House_Number == house_number)
+                            .Select(x => AddressDataToDTO(x))
+                            .ToListAsync();
+
+            if (addressData == null || !addressData.Any())
+            {
+                return NotFound();
+            }
+
+            return addressData;
+        }
+
+        [HttpGet("city/{city}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressDataByCity(string city)
+        {
+            var addressData = await _context.ADDRESS_DATA
+                            .Where(x => x.City == city)
+                            .Select(x => AddressDataToDTO(x))
+                            .ToListAsync();
+
+            if (addressData == null || !addressData.Any())
+            {
+                return NotFound();
+            }
+
+            return addressData;
+        }
+
+        [HttpGet("country/{country}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> GetAddressDataByCountry(string country)
+        {
+            var addressData = await _context.ADDRESS_DATA
+                            .Where(x => x.Country == country)
+                            .Select(x => AddressDataToDTO(x))
+                            .ToListAsync();
+
+            if (addressData == null || !addressData.Any())
+            {
+                return NotFound();
+            }
+
+            return addressData;
+        }
+
+        [HttpGet("sort/postcode/{AscOrDesc}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> SortAddressDataByPostcode(string AscOrDesc)
+        {
+            if (AscOrDesc == "Ascend" || AscOrDesc == "Asc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderBy(x => x.Postcode)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else if (AscOrDesc == "Descend" || AscOrDesc == "Desc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderByDescending(x => x.Postcode)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else { return NoContent(); }
+        }
+
+        [HttpGet("sort/street/{AscOrDesc}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> SortAddressDataByStreet(string AscOrDesc)
+        {
+            if (AscOrDesc == "Ascend" || AscOrDesc == "Asc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderBy(x => x.Street)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else if (AscOrDesc == "Descend" || AscOrDesc == "Desc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderByDescending(x => x.Street)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else { return NoContent(); }
+        }
+
+        [HttpGet("sort/housenumber/{AscOrDesc}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> SortAddressDataByHouseNumber(string AscOrDesc)
+        {
+            if (AscOrDesc == "Ascend" || AscOrDesc == "Asc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderBy(x => x.House_Number)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else if (AscOrDesc == "Descend" || AscOrDesc == "Desc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderByDescending(x => x.House_Number)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else { return NoContent(); }
+        }
+
+        [HttpGet("sort/city/{AscOrDesc}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> SortAddressDataByCity(string AscOrDesc)
+        {
+            if (AscOrDesc == "Ascend" || AscOrDesc == "Asc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderBy(x => x.City)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else if (AscOrDesc == "Descend" || AscOrDesc == "Desc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderByDescending(x => x.City)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else { return NoContent(); }
+        }
+
+        [HttpGet("sort/country/{AscOrDesc}")]
+        public async Task<ActionResult<IEnumerable<AddressDataDTO>>> SortAddressDataByCountry(string AscOrDesc)
+        {
+            if (AscOrDesc == "Ascend" || AscOrDesc == "Asc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderBy(x => x.Country)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else if (AscOrDesc == "Descend" || AscOrDesc == "Desc")
+            {
+                var addressData = await _context.ADDRESS_DATA
+                                   .OrderByDescending(x => x.Country)
+                                   .Select(x => AddressDataToDTO(x))
+                                   .ToListAsync();
+
+                if (addressData == null || !addressData.Any())
+                {
+                    return NotFound();
+                }
+
+                return addressData;
+            }
+            else { return NoContent(); }
         }
 
         [HttpPut("{postcode}")]
@@ -91,7 +325,7 @@ namespace AddressApp.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(
-                nameof(GetAddressData),
+                nameof(GetAddressDataByPostcode),
                 new { Postcode = addressData.Postcode },
                 AddressDataToDTO(addressData));
         }
@@ -99,20 +333,20 @@ namespace AddressApp.Controllers
         [HttpDelete("{postcode}")]
         public async Task<IActionResult> DeleteAddressData(string postcode)
         {
-            var todoItem = await _context.ADDRESS_DATA.FindAsync(postcode);
+            var addressData = await _context.ADDRESS_DATA.FindAsync(postcode);
 
-            if (todoItem == null)
+            if (addressData == null)
             {
                 return NotFound();
             }
 
-            _context.ADDRESS_DATA.Remove(todoItem);
+            _context.ADDRESS_DATA.Remove(addressData);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool  AddressDataExists(string Postcode) =>
+        private bool AddressDataExists(string Postcode) =>
              _context.ADDRESS_DATA.Any(e => e.Postcode == e.Postcode);
 
         private static AddressDataDTO AddressDataToDTO(AddressData addressData) =>
