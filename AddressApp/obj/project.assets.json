@@ -1298,11 +1298,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karel\\AddressApp\\AddressApp.csproj",
+      "projectUniqueName": "D:\\Case-SB\\AddressApp\\AddressApp.csproj",
       "projectName": "AddressApp",
-      "projectPath": "C:\\Users\\karel\\AddressApp\\AddressApp.csproj",
+      "projectPath": "D:\\Case-SB\\AddressApp\\AddressApp.csproj",
       "packagesPath": "C:\\Users\\karel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karel\\AddressApp\\obj\\",
+      "outputPath": "D:\\Case-SB\\AddressApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Visual Studio\\Shared\\NuGetPackages"
